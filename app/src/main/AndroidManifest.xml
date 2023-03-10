@@ -12,7 +12,7 @@
         android:theme="@style/Theme.Food"
         tools:targetApi="31">
         <activity
-            android:name=".HomeActivity"
+            android:name=".activities.HomeActivity"
             android:exported="false" />
         <activity
             android:name=".activities.SplashActivity"
