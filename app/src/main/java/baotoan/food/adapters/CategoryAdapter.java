@@ -12,13 +12,16 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import baotoan.food.databinding.ItemCategoryBinding;
+import baotoan.food.listener.CategoryListener;
 import baotoan.food.model.Category;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
     List<Category> list;
+    private CategoryListener listener;
 
-    public CategoryAdapter(List<Category> list) {
+    public CategoryAdapter(List<Category> list, CategoryListener listener) {
         this.list = list;
+        this.listener = listener;
     }
 
     @NonNull
@@ -49,6 +52,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
         public void setBinding(Category category){
             binding.setCategory(category);
+            binding.executePendingBindings();
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onCategoryClick(category);
+                }
+            });
         }
     }
 }

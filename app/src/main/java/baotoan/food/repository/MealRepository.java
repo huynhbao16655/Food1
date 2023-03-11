@@ -4,29 +4,30 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import baotoan.food.model.CategoryModel;
+import baotoan.food.model.MealModel;
 import baotoan.food.retrofit.FoodAppApi;
 import baotoan.food.retrofit.RetrofitInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CategoryRepository {
+public class MealRepository {
+
     private FoodAppApi foodAppApi;
 
-    public CategoryRepository(){
+    public MealRepository() {
         foodAppApi = RetrofitInstance.getRetrofit().create(FoodAppApi.class);
     }
-    public MutableLiveData<CategoryModel> getCategory(){
-        MutableLiveData<CategoryModel> data = new MutableLiveData<>();
-        foodAppApi.getCategory().enqueue(new Callback<CategoryModel>() {
-            @Override
-            public void onResponse(Call<CategoryModel> call, Response<CategoryModel> response) {
+    public MutableLiveData<MealModel> getMeals(int idcate){
+        MutableLiveData<MealModel> data = new MutableLiveData<>();
+        foodAppApi.getMeals(idcate).enqueue(new Callback<MealModel>() {
+            @Override// neu thanh cong
+            public void onResponse(Call<MealModel> call, Response<MealModel> response) {
                 data.setValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<CategoryModel> call, Throwable t) {
+            public void onFailure(Call<MealModel> call, Throwable t) {
                 Log.d("logg", t.getMessage());
                 data.setValue(null);
             }
