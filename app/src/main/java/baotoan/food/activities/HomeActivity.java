@@ -63,6 +63,7 @@ public class HomeActivity extends AppCompatActivity implements CategoryListener 
     public void onCategoryClick(Category category) {
         Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
         intent.putExtra("idcate", category.getId());
+        intent.putExtra("namecate", category.getCategory());
         startActivity(intent);
     }
 }
