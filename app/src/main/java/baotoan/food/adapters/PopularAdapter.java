@@ -12,13 +12,16 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import baotoan.food.databinding.ItemPopularBinding;
+import baotoan.food.listener.EventClickListener;
 import baotoan.food.model.Meals;
 
 public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.MyViewHolder> {
     private List<Meals> list;
+    private EventClickListener listener;
 
-    public PopularAdapter(List<Meals> list) {
+    public PopularAdapter(List<Meals> list, EventClickListener listener) {
         this.list = list;
+        this.listener = listener;
     }
 
     @NonNull
@@ -49,6 +52,12 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.MyViewHo
         private void setBinding(Meals meals){
             binding.setPopular(meals);
             binding.executePendingBindings();
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onPopularClick(meals);
+                }
+            });
         }
     }
 }

@@ -17,11 +17,12 @@ import baotoan.food.adapters.CategoryAdapter;
 import baotoan.food.adapters.PopularAdapter;
 import baotoan.food.databinding.ActivityHomeBinding;
 import baotoan.food.listener.CategoryListener;
+import baotoan.food.listener.EventClickListener;
 import baotoan.food.model.Category;
 import baotoan.food.model.Meals;
 import baotoan.food.viewModel.HomeViewModel;
 
-public class HomeActivity extends AppCompatActivity implements CategoryListener {
+public class HomeActivity extends AppCompatActivity implements CategoryListener, EventClickListener {
     HomeViewModel homeViewModel;
     ActivityHomeBinding binding;
     @Override
@@ -53,7 +54,7 @@ public class HomeActivity extends AppCompatActivity implements CategoryListener 
         });
         homeViewModel.mealModelMutableLiveData(1).observe(this, mealModel -> {
             if( mealModel.isSuccess()){
-                PopularAdapter adapter = new PopularAdapter(mealModel.getResult());
+                PopularAdapter adapter = new PopularAdapter(mealModel.getResult(), this);
                 binding.rcPopular.setAdapter(adapter);
             }
         });
@@ -64,6 +65,14 @@ public class HomeActivity extends AppCompatActivity implements CategoryListener 
         Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
         intent.putExtra("idcate", category.getId());
         intent.putExtra("namecate", category.getCategory());
+        startActivity(intent);
+    }
+
+    @Override
+    public void onPopularClick(Meals meals) {
+        Intent intent = new Intent(getApplicationContext(), ShowDetailActivity.class);
+        intent.putExtra("id", meals.getIdMeal());
+        intent.putExtra("namecate", meals.getStrMeal());
         startActivity(intent);
     }
 }

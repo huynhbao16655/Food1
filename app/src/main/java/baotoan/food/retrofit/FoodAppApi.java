@@ -18,4 +18,9 @@ public interface FoodAppApi {
             @Field("idcate") int idcate
     );
 
+    @POST("mealdetail.php")
+    @FormUrlEncoded
+    Call<MealModel> getMealDetail(
+            @Field("id") int id
+            );
 }
